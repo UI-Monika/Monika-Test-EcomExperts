@@ -93,7 +93,7 @@ if (!customElements.get('product-form')) {
             this.querySelector('.loading-overlay__spinner').classList.add('hidden');
           });
 
-         
+      
         }
 
       handleErrorMessage(errorMessage = false) {

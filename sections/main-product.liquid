@@ -683,32 +683,30 @@ const Size = document.querySelector('.select-menu--item:first-child input[name="
   });
 
  
- let btnSubmit = document.querySelector(".product-form__submit");
-
-  btnSubmit.addEventListener("click", function(){
-  let variantID = document.querySelector(".product-variant-id").value;
-  let quantityInput = document.querySelector(".quantity__input").value;
-    setTimeout(()=>{
-   if(variantID == "45521462722843"){
-    let formData = {
-      'items': [{
-       'id': 45513239691547,
-       'quantity': quantityInput,
-       }]
-     };
-     fetch(window.Shopify.routes.root + 'cart/add.js', {
-       method: 'POST',
-       headers: {
-         'Content-Type': 'application/json'
-       },
-       body: JSON.stringify(formData)
-     })
-     .catch((error) => {
-       console.error('Error:', error);
-     });
-   }},1000);
-
-  })  
+    submitButton.addEventListener('click', (event) => {
+    setTimeout(() => {
+     let blackMediumProduct = '45521462722843';
+     let currentProductVariant = document.querySelector('.product-variant-id').value;
+     if (blackMediumProduct == currentProductVariant) {
+      let formData = { 
+        'items': [{
+         'id': 45513239691547,
+         'quantity': document.querySelector('.quantity__input').value
+         }]
+       };
+       fetch(window.Shopify.routes.root + 'cart/add.js', {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(formData)
+       })
+       .catch((error) => {
+         console.error('Error:', error);
+       });   
+     }
+    }, 700);   
+   }) 
 </script>
 
 
