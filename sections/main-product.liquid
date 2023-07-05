@@ -686,9 +686,11 @@ const Size = document.querySelector('.select-menu--item:first-child input[name="
  let btnSubmit = document.querySelector(".product-form__submit");
 
   btnSubmit.addEventListener("click", function(){
+
+  setTimeout(()=>{
   let variantID = document.querySelector(".product-variant-id").value;
   let quantityInput = document.querySelector(".quantity__input").value;
-    setTimeout(()=>{
+      
    if(variantID == "45521462722843"){
     let formData = {
       'items': [{
