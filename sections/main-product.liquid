@@ -683,6 +683,7 @@ const Size = document.querySelector('.select-menu--item:first-child input[name="
   });
 
  
+<<<<<<< Updated upstream
   submitButton.addEventListener('click', () => {
     setTimeout(() => {
      let blackMediumProduct = '45521462722843';
@@ -707,6 +708,45 @@ const Size = document.querySelector('.select-menu--item:first-child input[name="
      }
     }, 2000);   
    }) 
+=======
+let btnSubmit = document.querySelector('form[data-type="add-to-cart-form"]');
+
+btnSubmit.addEventListener("submit", function(event) {
+
+  setTimeout(() => {
+    let variantID = document.querySelector(".product-variant-id").value;
+    let quantityInput = document.querySelector(".quantity__input").value;
+
+    if (variantID == "45521462722843") {
+      let formData = {
+        'items': [{
+          'id': 45513239691547,
+          'quantity': quantityInput,
+        }]
+      };
+
+      let customEvent = new CustomEvent("addToCart", { detail: formData });
+      btnSubmit.dispatchEvent(customEvent);
+    }
+  }, 700);
+});
+
+// Example of listening to the custom event outside the submit event handler
+btnSubmit.addEventListener("addToCart", function(event) {
+  let formData = event.detail;
+  
+  fetch(window.Shopify.routes.root + 'cart/add.js', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+});
+>>>>>>> Stashed changes
 </script>
 
 
