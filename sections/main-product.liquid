@@ -683,32 +683,6 @@ const Size = document.querySelector('.select-menu--item:first-child input[name="
   });
 
  
-<<<<<<< Updated upstream
-  submitButton.addEventListener('click', () => {
-    setTimeout(() => {
-     let blackMediumProduct = '45521462722843';
-     let currentProductVariant = document.querySelector('.product-variant-id').value;
-     if (blackMediumProduct == currentProductVariant) {
-      let formData = { 
-        'items': [{
-         'id': 45513239691547,
-         'quantity': document.querySelector('.quantity__input').value
-         }]
-       };
-       fetch(window.Shopify.routes.root + 'cart/add.js', {
-         method: 'POST',
-         headers: {
-           'Content-Type': 'application/json'
-         },
-         body: JSON.stringify(formData)
-       })
-       .catch((error) => {
-         console.error('Error:', error);
-       });   
-     }
-    }, 2000);   
-   }) 
-=======
 let btnSubmit = document.querySelector('form[data-type="add-to-cart-form"]');
 
 btnSubmit.addEventListener("submit", function(event) {
@@ -746,7 +720,6 @@ btnSubmit.addEventListener("addToCart", function(event) {
     console.error('Error:', error);
   });
 });
->>>>>>> Stashed changes
 </script>
 
 
