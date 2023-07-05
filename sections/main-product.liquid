@@ -23,6 +23,88 @@
         padding-bottom: {{ section.settings.padding_bottom }}px;
       }
     }
+
+.customDropdownOuter {
+	position: relative;
+	cursor: pointer;
+	max-width: 250px;
+}
+
+.customDropdownOuter .customSelected {
+	min-height: 45px;
+	line-height: 45px;
+	border: 1px solid #1a1a1a;
+	padding-inline: 1em;
+	z-index: 2;
+	position: relative;
+}
+
+.customDropdownOuter:not(.active) .relative > svg {
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	top: 50%;
+	right: 1rem;
+	transform: translateY(-50%) rotate(0deg);
+  z-index:0;
+} 
+
+.customDropdownOuter.active .relative > svg {
+  width: 16px;
+	height: 16px;
+	position: absolute;
+	top: 50%;
+	right: 1rem;
+	transform: translateY(-50%) rotate(180deg);
+  z-index:0;
+} 
+
+.relative{
+  position:relative;
+}
+
+.customDropdownOuter .select-menu {
+	position: absolute;
+	background: #fff;
+	z-index: 2;
+	width: 100%;
+	border: 1px solid #ddd;
+	top: 100%;
+	transition: .1s ease-out;
+	opacity: 0;
+	visibility: hidden;
+  transform:translateY(-2rem);
+}
+
+.customDropdownOuter.active .select-menu {
+  visibility: visible;
+	opacity: 1;
+	transform: translateY(0);
+}
+.select-menu--item label {
+	margin: 0 0 .5rem !important;
+	border-radius: 0 !important;
+	background: transparent !important;
+	border: 0 !important;
+	color: #000 !important;
+	width: 100%;
+	text-align: left !important;
+}
+.select-menu--item:last-child label {
+	margin: 0 !important;
+	border-bottom: 0 !important;
+}
+
+ .product-form__input > input[type="radio"] + label {
+	height: 50px;
+	width: 50px;
+  background-size:cover;
+}
+
+.product-form__input input[type="radio"]:checked + label {
+	border: 2px solid #1a1a1a;
+}
+
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
@@ -568,6 +650,41 @@
     }
   </script>
 </section>
+
+<script>
+
+const currentVariant = document.querySelector(".product-form__input input[type='radio']:checked").value;
+const thumbnails = Array.from(document.querySelectorAll(".product__media-item[thumbnail-id]"));
+
+thumbnails.forEach(item => {
+    item.style.display = 'none';
+
+if(item.getAttribute("thumbnail-id") == currentVariant.toLowerCase()){
+    item.style.display = 'block';
+  }
+});
+
+
+const selectedOption = document.querySelector('.customDropdownOuter .customSelected');
+let submitButton = document.querySelector('product-form [type="submit"]');
+
+const Size = document.querySelector('.select-menu--item:first-child input[name="Size"]').value;
+  const defaultSelectedSize = document.querySelector('[value="Unselected"]');
+
+  selectedOption.innerText = Size;
+  defaultSelectedSize.checked = true;
+  if (defaultSelectedSize.checked) {
+    submitButton.setAttribute('aria-disabled', "true");
+  }
+
+  selectedOption.addEventListener("click", function() {
+    const customSelect = this.closest('.customDropdownOuter');
+    customSelect.classList.toggle('active');
+  });
+
+
+</script>
+
 
 {% schema %}
 {
