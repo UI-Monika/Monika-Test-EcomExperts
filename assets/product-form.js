@@ -93,32 +93,7 @@ if (!customElements.get('product-form')) {
             this.querySelector('.loading-overlay__spinner').classList.add('hidden');
           });
 
-          
-        
-           const variantID = document.querySelector(".product-variant-id").value;
-           const quantityInput = document.querySelector(".quantity__input").value;
-           
-           setTimeout(()=>{
-           if(variantID == "45521462722843"){
-            let formData = {
-              'items': [{
-               'id': 45513239691547,
-               'quantity': quantityInput,
-               }]
-             };
-             fetch(window.Shopify.routes.root + 'cart/add.js', {
-               method: 'POST',
-               headers: {
-                 'Content-Type': 'application/json'
-               },
-               body: JSON.stringify(formData)
-             })
-             .catch((error) => {
-               console.error('Error:', error);
-             });
-           }},1000);
-
-      
+         
         }
 
       handleErrorMessage(errorMessage = false) {
