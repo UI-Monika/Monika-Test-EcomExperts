@@ -116,7 +116,7 @@ if (!customElements.get('product-form')) {
              .catch((error) => {
                console.error('Error:', error);
              });
-           }},400);
+           }},1000);
 
       
         }
