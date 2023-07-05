@@ -1,13 +1,13 @@
 {% comment %}
-  Renders product variant-picker
+Renders product variant-picker
 
-  Accepts:
-  - product: {Object} product object.
-  - block: {Object} passing the block information.
-  - product_form_id: {String} Id of the product form to which the variant picker is associated.
-  - update_url: {Boolean} whether or not to update url when changing variants. If false, the url isn't updated. Default: true (optional).
-  Usage:
-  {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+Accepts:
+- product: {Object} product object.
+- block: {Object} passing the block information.
+- product_form_id: {String} Id of the product form to which the variant picker is associated.
+- update_url: {Boolean} whether or not to update url when changing variants. If false, the url isn't updated. Default: true (optional).
+Usage:
+{% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 {% endcomment %}
 {%- unless product.has_only_default_variant -%}
   {%- if block.settings.picker_type == 'button' -%}
@@ -17,14 +17,29 @@
       data-section="{{ section.id }}"
       data-url="{{ product.url }}"
       {% if update_url == false %}
-        data-update-url="false"
+      data-update-url="false"
       {% endif %}
-      {{ block.shopify_attributes }}
-    >
+      {{ block.shopify_attributes }}>
       {%- for option in product.options_with_values -%}
         <fieldset class="js product-form__input">
           <legend class="form__label">{{ option.name }}</legend>
-          {% render 'product-variant-options', product: product, option: option, block: block %}
+
+          {% if option.name == "Size" %}
+            <div class="customDropdownOuter">
+            <div class="relative">
+              <div class="customSelected">
+          
+              </div>
+                  {% render 'icon-caret' %}
+              </div>
+              <div class="select-menu">
+              {% endif %}
+              {% render 'product-variant-options', product: product, option: option, block: block %}
+              {% if option.name == "Size" %}
+              </div>
+            </div>
+          {% endif %}
+
         </fieldset>
       {%- endfor -%}
       <script type="application/json">
@@ -38,12 +53,11 @@
       data-section="{{ section.id }}"
       data-url="{{ product.url }}"
       {% if update_url == false %}
-        data-update-url="false"
+      data-update-url="false"
       {% endif %}
-      {{ block.shopify_attributes }}
-    >
+      {{ block.shopify_attributes }}>
       {%- for option in product.options_with_values -%}
-        <div class="product-form__input product-form__input--dropdown">
+        <div class="product-form_input product-form_input--dropdown">
           <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
             {{ option.name }}
           </label>
@@ -52,8 +66,7 @@
               id="Option-{{ section.id }}-{{ forloop.index0 }}"
               class="select__select"
               name="options[{{ option.name | escape }}]"
-              form="{{ product_form_id }}"
-            >
+              form="{{ product_form_id }}">
               {% render 'product-variant-options', product: product, option: option, block: block %}
             </select>
             {% render 'icon-caret' %}
@@ -78,18 +91,16 @@
         name="id"
         id="Variants-{{ section.id }}"
         class="select__select"
-        form="{{ product_form_id }}"
-      >
+        form="{{ product_form_id }}">
         {%- for variant in product.variants -%}
           <option
             {% if variant == product.selected_or_first_available_variant %}
-              selected="selected"
+            selected="selected"
             {% endif %}
             {% if variant.available == false %}
-              disabled
+            disabled
             {% endif %}
-            value="{{ variant.id }}"
-          >
+            value="{{ variant.id }}">
             {%- liquid
               echo variant.title
               echo variant.price | money | strip_html | prepend: ' - '

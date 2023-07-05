@@ -6,8 +6,17 @@ class CartRemoveButton extends HTMLElement {
       event.preventDefault();
       const cartItems = this.closest('cart-items') || this.closest('cart-drawer-items');
       cartItems.updateQuantity(this.dataset.index, 0);
+
+      if( this.getAttribute("cart-id") == "45521462722843"){
+        setTimeout(() => {
+          document.querySelector("[cart-id='45513239691547']").dispatchEvent(new Event('click', { bubbles: true }));
+        }, 400);
+      }      
     });
   }
+
+  
+
 }
 
 customElements.define('cart-remove-button', CartRemoveButton);
