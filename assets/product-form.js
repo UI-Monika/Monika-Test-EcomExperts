@@ -94,8 +94,11 @@ if (!customElements.get('product-form')) {
             if (!this.error) this.submitButton.removeAttribute('aria-disabled');
             this.querySelector('.loading-overlay__spinner').classList.add('hidden');
           });
+          
 
          }
+
+
 
       handleErrorMessage(errorMessage = false) {
         if (this.hideErrors) return;
